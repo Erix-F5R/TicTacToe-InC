@@ -87,7 +87,7 @@ int place_mark(Game *game, int row, char col)
     if(row > 2 || row < 0){
         return 1;
     }
-    
+
     if(tolower(col) < 97 || tolower(col) > 99 ){
         return 1;
     }
@@ -176,6 +176,7 @@ int main()
         while (check_win(&new_game) == 0)
         {
 
+            //scanf is a bit delicate to bad inputs
             scanf("%d%c", &input_row, &input_col);
             place_mark(&new_game, input_row, input_col);
             system("clear");
