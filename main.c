@@ -80,14 +80,25 @@ int place_mark(Game *game, int row, char col)
     // cols are 0, 1 , 2
     int r = (row - 1) * 3;
     int c = tolower(col) - 97;
-
+    
     index = r + c;
+
+    //Bad input handling
+    if(row > 2 || row < 0){
+        return 1;
+    }
+    
+    if(tolower(col) < 97 || tolower(col) > 99 ){
+        return 1;
+    }
 
     // Check if index is full
     if (game->board[index] != ' ')
     {
         return 1;
     }
+
+
 
     // Update board with X or O, then incr turn
     game->board[index] = XorO[game->turn % 2];
