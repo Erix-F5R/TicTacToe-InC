@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-//Global
+// Global
 char XorO[2] = {'X', 'O'};
 
 struct game
@@ -35,7 +35,7 @@ int printBoard(Game *game)
     char *header = " \n\n\txoxoxoxoxoxoxoxoxoxoxoxo\n\toxoxox TIC TAC TOE xoxox\n\txoxoxoxoxoxoxoxoxoxoxoxo\n\n\tTo exit game press CTRL-C\n\n";
     char *whos_turn = "\tCurrently Player %c's turn\n\tEnter your next move's coordinate( ex. 1a):\n\n";
 
-    char *declare_winner = "\tGAME OVER - Player %c has won!\n\tTo replay enter 'r'\n\n";
+    char *declare_winner = "\tGAME OVER - Player %c has won!\n\tTo replay enter r\nTo quit enter q\n\n";
     char *declare_tie = "\tGAME OVER - Tie Game\n\tTo play again enter: r\n\n";
 
     char *board_template[9] = {"\t  :    |   |\n\t 1:  %c",
@@ -146,32 +146,37 @@ int check_win(Game *game)
     return 0;
 }
 
-
-
 int main()
 {
-    // char replay = 'r';
+    char replay = 'r';
     Game new_game;
 
-    init_game(&new_game);
-    system("clear");
-    printBoard(&new_game);
-
-    // Game Engine
-    int input_row;
-    char input_col;
-
-    while (check_win(&new_game) == 0)
+    while (replay == 'r')
     {
 
-        scanf("%d%c", &input_row, &input_col);
-        place_mark(&new_game, input_row, input_col);
+        init_game(&new_game);
         system("clear");
         printBoard(&new_game);
-    }
 
-    system("clear");
-    printBoard(&new_game);
+        // Game Engine
+        int input_row;
+        char input_col;
+
+        while (check_win(&new_game) == 0)
+        {
+
+            scanf("%d%c", &input_row, &input_col);
+            place_mark(&new_game, input_row, input_col);
+            system("clear");
+            printBoard(&new_game);
+        }
+
+        system("clear");
+        printBoard(&new_game);
+
+        //Scanf is consuming the \n
+        scanf(" %c", &replay);
+    }
 
     return 0;
 }
